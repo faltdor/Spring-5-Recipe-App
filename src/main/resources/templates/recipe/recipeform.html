@@ -11,6 +11,8 @@
 </head>
 <body>
 	<div class="container">
+		<!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+		
 		<div class="row">
 			<div class="col-md-12 ">
 				<form th:object="${recipe}" th:action="@{/recipe/}" method="post">

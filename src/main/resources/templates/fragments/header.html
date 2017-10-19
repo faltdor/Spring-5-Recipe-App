@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head lang="en">
+
+</head>
+<body>
+
+	<div class="container">
+		<div th:fragment="header">
+			<nav class="navbar navbar-default">
+				<div class="container-fluid">
+					<div class="navbar-header">
+						<a class="navbar-brand" href="#" th:href="@{/}">Home</a>
+						<ul class="nav navbar-nav">
+							<li><a href="#" th:href="@{/index}">Recipe</a></li>
+							<li><a href="#" th:href="@{/recipe/new}"
+								sec:authorize="hasAuthority('ADMIN')">Create Recipe</a></li>
+							<li sec:authorize="!isAuthenticated()"><a href="#" th:href="@{/login}">Sign In</a></li>
+							<li sec:authorize="isAuthenticated()"><a href="#" th:href="@{/logout}">Logout</a></li>
+						</ul>
+					</div>
+				</div>
+			</nav>			
+			<div class="jumbotron">
+				<h1 class="display-3">My Recipes</h1>
+				<p class="lead">This application was created using Spring 5 -
+					Spring Data and thymeleaf template .</p>
+				<p class="lead">
+					You can see the code at <span role="presentation"> <a
+						href="https://github.com/faltdor/Spring-5-Recipe-App">Spring 5
+							Recipe App</a></span>
+				</p>
+				 <div class="welcome">
+	           		 <span sec:authorize="isAuthenticated()">Welcome <span sec:authentication="name"></span></span>
+	        	</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>

@@ -28,4 +28,10 @@ public class IndexController {
 		return "index";
 	}
 	
+	@RequestMapping({"/login"})
+	public String getLoginPage(Model model) {
+		
+		return "login";
+	}
+	
 }

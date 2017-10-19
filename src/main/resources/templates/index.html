@@ -1,29 +1,25 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}" >
-
+	
+	<!--/*/ <th:block th:include="fragments/headerimports :: head"></th:block> /*/-->
+	
 <title>Recipe App</title>
 </head>
 <body>
 	<div class="container">
-		<div class="jumbotron">
-			<h1 class="display-3">My Recipes</h1>
-			<p class="lead">This application was created using Spring 5 -
-				Spring Data and thymeleaf template .</p>
-			<p class="lead">
-				You can see the code at <span role="presentation"> <a
-					href="https://github.com/faltdor/Spring-5-Recipe-App">Spring 5
-						Recipe App</a></span>
-			</p>
-		</div>
-
+		
+		<!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+		
+		
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<h1>List of Recipes</h1>
+
 			</div>
 			<div class="table-responsive" th:if="${not #lists.isEmpty(recipes)}">
 				<table class="table table-striped table-hover ">
@@ -31,21 +27,21 @@
 						<tr>
 							<th>ID</th>
 							<th>Description</th>
-							<th>View</th>
-							<th>Update</th>
-							<th>Delete</th>
+							<th sec:authorize="hasAnyAuthority('USER','ADMIN')">View</th>
+							<th sec:authorize="hasAuthority('ADMIN')">Update</th>
+							<th sec:authorize="hasAuthority('ADMIN')">Delete</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr th:each="recipe : ${recipes}">
 							<td th:text="${recipe.id}"></td>
 							<td th:text="${recipe.description}"></td>
-							<td><a href="#" th:href="@{'/recipe/'+${recipe.id}+'/show'}" 
-											>View</a></td>
-							<td><a href="#" th:href="@{'/recipe/'+${recipe.id}+'/update'}" 
-											>Update</a></td>
-							<td><a href="#" th:href="@{'/recipe/'+${recipe.id}+'/delete'}" 
-											>delete</a></td>
+							<td sec:authorize="hasAnyAuthority('USER','ADMIN')"><a
+								href="#" th:href="@{'/recipe/'+${recipe.id}+'/show'}">View</a></td>
+							<td sec:authorize="hasAuthority('ADMIN')"><a href="#"
+								th:href="@{'/recipe/'+${recipe.id}+'/update'}">Update</a></td>
+							<td sec:authorize="hasAuthority('ADMIN')"><a href="#"
+								th:href="@{'/recipe/'+${recipe.id}+'/delete'}">delete</a></td>
 						</tr>
 					</tbody>
 				</table>
@@ -57,9 +53,8 @@
 		</footer>
 	</div>
 
-	<script src="/webjars/jquery/1.11.1/jquery.min.js"
-		></script>
-	
+
+
 
 </body>
 </html>
